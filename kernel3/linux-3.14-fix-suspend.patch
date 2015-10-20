@@ -1,0 +1,22 @@
+--- linux-3.14.3.x86_64/drivers/pnp/driver.c	2014-05-06 22:59:58.000000000 +0800
++++ linux-3.14.3.x86_64n/drivers/pnp/driver.c	2014-05-09 02:36:27.195148066 +0800
+@@ -176,7 +176,7 @@
+ 			return error;
+ 	}
+ 
+-	if (pnp_can_disable(pnp_dev)) {
++    if (pnp_can_disable(pnp_dev) && !pnp_dev->protocol->suspend) {
+ 		error = pnp_stop_dev(pnp_dev);
+ 		if (error)
+ 			return error;
+@@ -215,9 +215,7 @@
+ 		error = pnp_dev->protocol->resume(pnp_dev);
+ 		if (error)
+ 			return error;
+-	}
+-
+-	if (pnp_can_write(pnp_dev)) {
++    } else if (pnp_can_write(pnp_dev)) {
+ 		error = pnp_start_dev(pnp_dev);
+ 		if (error)
+ 			return error;

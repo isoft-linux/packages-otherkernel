@@ -1,0 +1,15 @@
+diff -Nur linux-3.3.x86_64/drivers/cdrom/cdrom.c linux-3.3.x86_64n/drivers/cdrom/cdrom.c
+--- linux-3.3.x86_64/drivers/cdrom/cdrom.c	2012-03-19 07:15:34.000000000 +0800
++++ linux-3.3.x86_64n/drivers/cdrom/cdrom.c	2012-03-20 17:02:13.824972446 +0800
+@@ -287,9 +287,9 @@
+ /* used to tell the module to turn on full debugging messages */
+ static bool debug;
+ /* default compatibility mode */
+-static bool autoclose=1;
++static bool autoclose= 0;
+ static bool autoeject;
+-static bool lockdoor = 1;
++static bool lockdoor = 0;
+ /* will we ever get to use this... sigh. */
+ static bool check_media_type;
+ /* automatically restart mrw format */
