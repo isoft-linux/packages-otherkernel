@@ -1,3 +1,5 @@
+%define debug_package %{nil}
+
 %define kversion 3.18.22
 %define release 74
 
