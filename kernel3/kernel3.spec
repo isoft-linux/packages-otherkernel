@@ -1,6 +1,8 @@
+#NOTE: we do not provide debuginfo/kernel-tools for non-main kernel
+
 %define debug_package %{nil}
 
-%define kversion 3.18.22
+%define kversion 3.18.23
 %define release 74
 
 %define extraversion -%{release}
@@ -240,6 +242,11 @@ popd
 #not main kernel, remove kernel-headers
 rm -rf %{buildroot}%{_includedir}
 
+#not main kernel, even do not own /lib/firmware
+#/lib/firmware is owned by main kernel.
+#All firmwares provided by linux-firmware and other firmware packages.
+rm -rf %{buildroot}/lib/firmware
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -273,7 +280,6 @@ grub-mkconfig -o /boot/grub/grub.cfg >/dev/null ||:
 /lib/modules/%{KVERREL}/weak-updates
 %exclude /lib/modules/%{KVERREL}/build
 %exclude /lib/modules/%{KVERREL}/source
-/lib/firmware
 %ghost /boot/initrd-%{KVERREL}.img
 %ghost /lib/modules/%{KVERREL}/modules.alias
 %ghost /lib/modules/%{KVERREL}/modules.alias.bin
